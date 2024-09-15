@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
 const Api_key="99eb9fd1"
-const url=`https://www.omdbapi.com/?apikey=${Api_key}&t=`;
+const url=`https://www.omdbapi.com/?apikey=${Api_key}&s=`;
 
 const Movies = () => {
   const [query, setQuery]= useState('hello');
@@ -23,7 +23,7 @@ const Movies = () => {
           setError("Invalid movie name. Please try again.");
         }
         else{
-         setMovies(data.data);
+         setMovies(data.data.Search);
          setError("");
 
        }
@@ -37,7 +37,7 @@ const Movies = () => {
   }
  
   // handleSearch()
-  console.log("movies",movies.length)
+  console.log("movies",movies)
   return (
     <div className='movie-search'>
      <form onSubmit={handleSearch}>
@@ -54,12 +54,14 @@ const Movies = () => {
 {error && <li className='error'>{error}</li>}
 
 
-{ error === '' && <li key={movies.imdbID} className='movie-card'>
-   <div>
-   <h3>{movies.Title} ({movies.Year})</h3>
-   <img src={movies.Poster} alt={movies.Title}/>
-   </div>
-  </li>}
+{ error === '' && movies.map((movie)=>{
+  return <li key={movie.imdbID} className='movie-card'>
+   
+  <h3>{movie.Title} ({movie.Year})</h3>
+  <img src={movie.Poster} alt={movie.Title}/>
+ 
+ </li>
+})}
 
 
 </ul>}
