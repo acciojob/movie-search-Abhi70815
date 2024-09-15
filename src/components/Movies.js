@@ -8,6 +8,7 @@ const Movies = () => {
   const [query, setQuery]= useState('hello');
   const [movies, setMovies]= useState([]);
   const [error, setError]= useState('');
+  const [display,setDisplay]= useState(false)
 
   const handleSearch= (e)=>{
     e.preventDefault();
@@ -19,14 +20,14 @@ const Movies = () => {
       .then(data=>{
         console.log(data.data)
         if(data.data.Response === 'False'){
-          setError(data.data);
+          setError("Invalid movie name. Please try again.");
         }
         else{
          setMovies(data.data);
          setError("");
 
        }
-        
+      setDisplay(true);
 
       })
 
@@ -48,18 +49,20 @@ const Movies = () => {
           />
         <button type='submit'>Search</button>
      </form>
-     {error && <p className='error'>{error.Error}</p>}
-       <ul className='movie-results'>
+       {display && <ul className='movie-results'>
 
-         
-          
-          { error === '' && <li key={movies.imdbID} className='movie-card'>
-              <h3>{movies.Title} {movies.Year}</h3>
-              <img src={movies.Poster} alt={movies.Title}/>
-            </li>}
-          
-         
-       </ul>
+{error && <li className='error'>{error}</li>}
+
+
+{ error === '' && <li key={movies.imdbID} className='movie-card'>
+   <div>
+   <h3>{movies.Title} {movies.Year}</h3>
+   <img src={movies.Poster} alt={movies.Title}/>
+   </div>
+  </li>}
+
+
+</ul>}
     </div>
   )
 }
