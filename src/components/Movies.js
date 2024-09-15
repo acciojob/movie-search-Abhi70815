@@ -56,7 +56,7 @@ const Movies = () => {
 
 { error === '' && <li key={movies.imdbID} className='movie-card'>
    <div>
-   <h3>{movies.Title} {movies.Year}</h3>
+   <h3>{movies.Title} ({movies.Year})</h3>
    <img src={movies.Poster} alt={movies.Title}/>
    </div>
   </li>}
