@@ -5,7 +5,7 @@ const Api_key="99eb9fd1"
 const url=`https://www.omdbapi.com/?apikey=${Api_key}&s=`;
 
 const Movies = () => {
-  const [query, setQuery]= useState('hello');
+  const [query, setQuery]= useState('');
   const [movies, setMovies]= useState([]);
   const [error, setError]= useState('');
   const [display,setDisplay]= useState(false)
@@ -54,8 +54,8 @@ const Movies = () => {
 {error && <li className='error'>{error}</li>}
 
 
-{ error === '' && movies.map((movie)=>{
-  return <li key={movie.imdbID} className='movie-card'>
+{ error === '' && movies.map((movie, idx)=>{
+  return <li key={movie.imdbID} className='movie-card' id={idx}>
    
   <h3>{movie.Title} ({movie.Year})</h3>
   <img src={movie.Poster} alt={movie.Title}/>
